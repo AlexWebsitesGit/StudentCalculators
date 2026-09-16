@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Matemáticas Aplicadas</title>
+    <title>Portal de Matemáticas y Cálculo</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,14 +15,12 @@
         header {
             background-color: #0056b3;
             color: white;
-            padding: 10px 20px;
+            padding: 15px 20px;
             border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-align: center;
         }
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 20px auto;
             background: white;
             padding: 20px;
@@ -31,9 +29,12 @@
         }
         /* Estilos de la Calculadora */
         .calculator {
-            width: 250px;
+            width: 260px;
             margin: 20px auto;
             text-align: center;
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
         }
         .calculator input[type="text"] {
             width: 100%;
@@ -42,6 +43,7 @@
             text-align: right;
             margin-bottom: 10px;
             box-sizing: border-box;
+            padding-right: 5px;
         }
         .calculator .buttons {
             display: grid;
@@ -49,60 +51,58 @@
             gap: 5px;
         }
         .calculator button {
-            height: 40px;
+            height: 45px;
             font-size: 18px;
             cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: white;
         }
-        /* Sección de Juegos */
+        .calculator button:hover {
+            background: #ddd;
+        }
+        
+        /* Sección de Juegos Oculta */
         #games-section {
             display: none;
             margin-top: 30px;
-            border-top: 2px solid #0056b3;
+            border-top: 3px solid #0056b3;
             padding-top: 20px;
         }
         .game-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
         }
         .game-card {
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 5px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
             text-align: center;
+            background: #fafafa;
+        }
+        .game-card h3 {
+            margin-top: 0;
+            color: #0056b3;
         }
         iframe {
             width: 100%;
-            height: 200px;
+            height: 450px;
             border: none;
-        }
-        .auth-container {
-            margin-bottom: 20px;
+            border-radius: 6px;
+            background: #000;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Recursos Matemáticos</h1>
-    <div id="user-info">
-        <span id="user-display">Sin iniciar sesión</span>
-    </div>
+    <h1>Herramientas y Recursos Matemáticos</h1>
 </header>
 
 <div class="container">
-    <!-- Registro / Inicio de sesión simulado -->
-    <div class="auth-container">
-        <h3>Acceso de Usuario</h3>
-        <input type="text" id="username" placeholder="Nombre de usuario">
-        <button onclick="login()">Iniciar Sesión / Registrar</button>
-        <button onclick="logout()">Cerrar Sesión</button>
-    </div>
-
-    <hr>
-
     <!-- Calculadora -->
-    <h2>Calculadora Científica Básica</h2>
+    <h2>Calculadora interactiva</h2>
     <div class="calculator">
         <input type="text" id="calc-display" readonly>
         <div class="buttons">
@@ -127,18 +127,45 @@
 
     <!-- Sección Oculta de Juegos -->
     <div id="games-section">
-        <h2>Galería de Juegos Interactivos</h2>
+        <h2>Sección Interactiva</h2>
         <div class="game-grid">
+            
+            <!-- Eggy Car (Estilo Drive Mad / Físicas) -->
             <div class="game-card">
-                <h3>Drive Mad</h3>
-                <!-- Enlace de ejemplo para embeber -->
-                <iframe src="https://mathgames66.github.org/" title="Drive Mad"></iframe>
+                <h3>Eggy Car (Físicas y Conducción)</h3>
+                <iframe src="https://html5.gamedistribution.com/59a98bf799ef499d9d7b9285bccaa196/" allowfullscreen></iframe>
             </div>
+
+            <!-- Mad Truck Challenge -->
             <div class="game-card">
-                <h3>Replica Among Us</h3>
-                <!-- Enlace de ejemplo para embeber -->
-                <iframe src="https://example.com" title="Among Us Replica"></iframe>
+                <h3>Mad Truck Challenge</h3>
+                <iframe src="https://html5.gamedistribution.com/d949479bce6240dd9c66a41fdf7ceef6/" allowfullscreen></iframe>
             </div>
+
+            <!-- Extreme Offroad Cars 3: Cargo -->
+            <div class="game-card">
+                <h3>Extreme Offroad Cars</h3>
+                <iframe src="https://html5.gamedistribution.com/8323497d549f4a5aa46e3365825dfa2d/" allowfullscreen></iframe>
+            </div>
+
+            <!-- Stunt Car Challenge 3 -->
+            <div class="game-card">
+                <h3>Stunt Car Challenge 3</h3>
+                <iframe src="https://html5.gamedistribution.com/6c2d6dd12e52467b9319e34bb7cf7d0f/" allowfullscreen></iframe>
+            </div>
+
+            <!-- Monster Truck Torment -->
+            <div class="game-card">
+                <h3>Monster Truck Torment</h3>
+                <iframe src="https://html5.gamedistribution.com/001007ef11ef4f788aa3be095d3a5ca8/" allowfullscreen></iframe>
+            </div>
+
+            <!-- Drift Boss -->
+            <div class="game-card">
+                <h3>Drift Boss</h3>
+                <iframe src="https://html5.gamedistribution.com/618ef3dbb0784400a0b27150c18ef773/" allowfullscreen></iframe>
+            </div>
+
         </div>
     </div>
 </div>
@@ -146,7 +173,6 @@
 <script>
     const SECRET_CODE = "6767";
 
-    // Manejo de la calculadora y clave secreta
     function appendCalc(value) {
         const display = document.getElementById('calc-display');
         display.value += value;
@@ -171,35 +197,6 @@
             document.getElementById('games-section').style.display = 'block';
         }
     }
-
-    // Simulación de Persistencia de Usuario con localStorage
-    function login() {
-        const username = document.getElementById('username').value;
-        if (username) {
-            localStorage.setItem('currentUser', username);
-            updateUserDisplay();
-        }
-    }
-
-    function logout() {
-        localStorage.removeItem('currentUser');
-        updateUserDisplay();
-    }
-
-    function updateUserDisplay() {
-        const user = localStorage.getItem('currentUser');
-        const display = document.getElementById('user-display');
-        if (user) {
-            display.textContent = `Usuario: ${user}`;
-        } else {
-            display.textContent = 'Sin iniciar sesión';
-        }
-    }
-
-    // Cargar estado al iniciar la página
-    window.onload = function() {
-        updateUserDisplay();
-    };
 </script>
 
 </body>
