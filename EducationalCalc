@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Matemáticas Aplicadas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        /* Estilos de la Calculadora */
+        .calculator {
+            width: 250px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        .calculator input[type="text"] {
+            width: 100%;
+            height: 40px;
+            font-size: 20px;
+            text-align: right;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        .calculator .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+        .calculator button {
+            height: 40px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        /* Sección de Juegos */
+        #games-section {
+            display: none;
+            margin-top: 30px;
+            border-top: 2px solid #0056b3;
+            padding-top: 20px;
+        }
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .game-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        iframe {
+            width: 100%;
+            height: 200px;
+            border: none;
+        }
+        .auth-container {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Recursos Matemáticos</h1>
+    <div id="user-info">
+        <span id="user-display">Sin iniciar sesión</span>
+    </div>
+</header>
+
+<div class="container">
+    <!-- Registro / Inicio de sesión simulado -->
+    <div class="auth-container">
+        <h3>Acceso de Usuario</h3>
+        <input type="text" id="username" placeholder="Nombre de usuario">
+        <button onclick="login()">Iniciar Sesión / Registrar</button>
+        <button onclick="logout()">Cerrar Sesión</button>
+    </div>
+
+    <hr>
+
+    <!-- Calculadora -->
+    <h2>Calculadora Científica Básica</h2>
+    <div class="calculator">
+        <input type="text" id="calc-display" readonly>
+        <div class="buttons">
+            <button onclick="appendCalc('7')">7</button>
+            <button onclick="appendCalc('8')">8</button>
+            <button onclick="appendCalc('9')">9</button>
+            <button onclick="appendCalc('/')">/</button>
+            <button onclick="appendCalc('4')">4</button>
+            <button onclick="appendCalc('5')">5</button>
+            <button onclick="appendCalc('6')">6</button>
+            <button onclick="appendCalc('*')">*</button>
+            <button onclick="appendCalc('1')">1</button>
+            <button onclick="appendCalc('2')">2</button>
+            <button onclick="appendCalc('3')">3</button>
+            <button onclick="appendCalc('-')">-</button>
+            <button onclick="clearCalc()">C</button>
+            <button onclick="appendCalc('0')">0</button>
+            <button onclick="calculateResult()">=</button>
+            <button onclick="appendCalc('+')">+</button>
+        </div>
+    </div>
+
+    <!-- Sección Oculta de Juegos -->
+    <div id="games-section">
+        <h2>Galería de Juegos Interactivos</h2>
+        <div class="game-grid">
+            <div class="game-card">
+                <h3>Drive Mad</h3>
+                <!-- Enlace de ejemplo para embeber -->
+                <iframe src="https://mathgames66.github.org/" title="Drive Mad"></iframe>
+            </div>
+            <div class="game-card">
+                <h3>Replica Among Us</h3>
+                <!-- Enlace de ejemplo para embeber -->
+                <iframe src="https://example.com" title="Among Us Replica"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const SECRET_CODE = "6767";
+
+    // Manejo de la calculadora y clave secreta
+    function appendCalc(value) {
+        const display = document.getElementById('calc-display');
+        display.value += value;
+        checkSecretCode(display.value);
+    }
+
+    function clearCalc() {
+        document.getElementById('calc-display').value = '';
+    }
+
+    function calculateResult() {
+        const display = document.getElementById('calc-display');
+        try {
+            display.value = eval(display.value);
+        } catch (e) {
+            display.value = 'Error';
+        }
+    }
+
+    function checkSecretCode(val) {
+        if (val.includes(SECRET_CODE)) {
+            document.getElementById('games-section').style.display = 'block';
+        }
+    }
+
+    // Simulación de Persistencia de Usuario con localStorage
+    function login() {
+        const username = document.getElementById('username').value;
+        if (username) {
+            localStorage.setItem('currentUser', username);
+            updateUserDisplay();
+        }
+    }
+
+    function logout() {
+        localStorage.removeItem('currentUser');
+        updateUserDisplay();
+    }
+
+    function updateUserDisplay() {
+        const user = localStorage.getItem('currentUser');
+        const display = document.getElementById('user-display');
+        if (user) {
+            display.textContent = `Usuario: ${user}`;
+        } else {
+            display.textContent = 'Sin iniciar sesión';
+        }
+    }
+
+    // Cargar estado al iniciar la página
+    window.onload = function() {
+        updateUserDisplay();
+    };
+</script>
+
+</body>
+</html>
