@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Matemáticas y Cálculo</title>
+    <title>Portal de Matemáticas Aplicadas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,19 +15,19 @@
         header {
             background-color: #0056b3;
             color: white;
-            padding: 15px 20px;
+            padding: 15px;
             border-radius: 5px;
             text-align: center;
         }
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 20px auto;
             background: white;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        /* Estilos de la Calculadora */
+        /* Calculadora */
         .calculator {
             width: 260px;
             margin: 20px auto;
@@ -58,11 +58,9 @@
             border-radius: 4px;
             background: white;
         }
-        .calculator button:hover {
-            background: #ddd;
-        }
-        
-        /* Sección de Juegos Oculta */
+        .calculator button:hover { background: #ddd; }
+
+        /* Juegos */
         #games-section {
             display: none;
             margin-top: 30px;
@@ -71,7 +69,7 @@
         }
         .game-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 20px;
         }
         .game-card {
@@ -81,17 +79,29 @@
             text-align: center;
             background: #fafafa;
         }
-        .game-card h3 {
-            margin-top: 0;
-            color: #0056b3;
-        }
-        iframe {
-            width: 100%;
-            height: 450px;
-            border: none;
+        canvas {
+            background: #111;
             border-radius: 6px;
-            background: #000;
+            width: 100%;
+            max-width: 250px;
+            height: 200px;
+            display: block;
+            margin: 10px auto;
         }
+        .controls-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        .start-btn {
+            padding: 8px 15px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .start-btn:hover { background: #218838; }
     </style>
 </head>
 <body>
@@ -101,8 +111,7 @@
 </header>
 
 <div class="container">
-    <!-- Calculadora -->
-    <h2>Calculadora interactiva</h2>
+    <h2>CalculadoraInteractiva</h2>
     <div class="calculator">
         <input type="text" id="calc-display" readonly>
         <div class="buttons">
@@ -125,45 +134,33 @@
         </div>
     </div>
 
-    <!-- Sección Oculta de Juegos -->
+    <!-- Sección Oculta con Juegos Canvas Integrados -->
     <div id="games-section">
-        <h2>Sección Interactiva</h2>
+        <h2>Juegos Nativos Integrados</h2>
         <div class="game-grid">
             
-            <!-- Eggy Car (Estilo Drive Mad / Físicas) -->
+            <!-- Juego 1: Drive Mad Replica -->
             <div class="game-card">
-                <h3>Eggy Car (Físicas y Conducción)</h3>
-                <iframe src="https://html5.gamedistribution.com/59a98bf799ef499d9d7b9285bccaa196/" allowfullscreen></iframe>
+                <h3>Drive Mad (Físicas 2D)</h3>
+                <canvas id="canvas-drivemad" width="250" height="200"></canvas>
+                <button class="start-btn" onclick="initDriveMad()">Reiniciar Juego</button>
+                <p class="controls-hint">Controles: Flechas Izq / Der (Acelerar/Frenar)</p>
             </div>
 
-            <!-- Mad Truck Challenge -->
+            <!-- Juego 2: Racing 2D -->
             <div class="game-card">
-                <h3>Mad Truck Challenge</h3>
-                <iframe src="https://html5.gamedistribution.com/d949479bce6240dd9c66a41fdf7ceef6/" allowfullscreen></iframe>
+                <h3>Traffic Racer</h3>
+                <canvas id="canvas-traffic" width="250" height="200"></canvas>
+                <button class="start-btn" onclick="initTraffic()">Reiniciar Juego</button>
+                <p class="controls-hint">Controles: Flechas Izq / Der (Esquivar)</p>
             </div>
 
-            <!-- Extreme Offroad Cars 3: Cargo -->
+            <!-- Juego 3: Drift Boss Replica -->
             <div class="game-card">
-                <h3>Extreme Offroad Cars</h3>
-                <iframe src="https://html5.gamedistribution.com/8323497d549f4a5aa46e3365825dfa2d/" allowfullscreen></iframe>
-            </div>
-
-            <!-- Stunt Car Challenge 3 -->
-            <div class="game-card">
-                <h3>Stunt Car Challenge 3</h3>
-                <iframe src="https://html5.gamedistribution.com/6c2d6dd12e52467b9319e34bb7cf7d0f/" allowfullscreen></iframe>
-            </div>
-
-            <!-- Monster Truck Torment -->
-            <div class="game-card">
-                <h3>Monster Truck Torment</h3>
-                <iframe src="https://html5.gamedistribution.com/001007ef11ef4f788aa3be095d3a5ca8/" allowfullscreen></iframe>
-            </div>
-
-            <!-- Drift Boss -->
-            <div class="game-card">
-                <h3>Drift Boss</h3>
-                <iframe src="https://html5.gamedistribution.com/618ef3dbb0784400a0b27150c18ef773/" allowfullscreen></iframe>
+                <h3>Drift Master</h3>
+                <canvas id="canvas-drift" width="250" height="200"></canvas>
+                <button class="start-btn" onclick="initDrift()">Reiniciar Juego</button>
+                <p class="controls-hint">Controles: Espacio (Cambiar Dirección)</p>
             </div>
 
         </div>
@@ -185,17 +182,154 @@
 
     function calculateResult() {
         const display = document.getElementById('calc-display');
-        try {
-            display.value = eval(display.value);
-        } catch (e) {
-            display.value = 'Error';
-        }
+        try { display.value = eval(display.value); } 
+        catch (e) { display.value = 'Error'; }
     }
 
     function checkSecretCode(val) {
         if (val.includes(SECRET_CODE)) {
             document.getElementById('games-section').style.display = 'block';
+            initDriveMad();
+            initTraffic();
+            initDrift();
         }
+    }
+
+    // --- MENEJO DE TECLADO ---
+    const keys = {};
+    window.addEventListener('keydown', e => keys[e.code] = true);
+    window.addEventListener('keyup', e => keys[e.code] = false);
+
+    // --- JUEGO 1: DRIVE MAD (FÍSICAS) ---
+    let dmState = {};
+    function initDriveMad() {
+        dmState = { x: 30, y: 150, vx: 0, vy: 0, angle: 0, vAngle: 0 };
+    }
+    function updateDriveMad() {
+        const canvas = document.getElementById('canvas-drivemad');
+        if (!canvas || !canvas.getContext) return;
+        const ctx = canvas.getContext('2d');
+        
+        // Físicas básicas
+        if (keys['ArrowRight']) dmState.vx += 0.2;
+        if (keys['ArrowLeft']) dmState.vx -= 0.1;
+        dmState.vx *= 0.95;
+        dmState.x += dmState.vx;
+
+        // Terreno
+        let terrainY = 160 - Math.sin(dmState.x * 0.05) * 20;
+        dmState.y = terrainY - 10;
+
+        ctx.fillStyle = "#222";
+        ctx.fillRect(0, 0, 250, 200);
+
+        // Dibujar Terreno
+        ctx.fillStyle = "#8B5A2B";
+        ctx.beginPath();
+        ctx.moveTo(0, 200);
+        for(let i = 0; i <= 250; i += 10) {
+            let worldX = dmState.x - 30 + i;
+            let ty = 160 - Math.sin(worldX * 0.05) * 20;
+            ctx.lineTo(i, ty);
+        }
+        ctx.lineTo(250, 200);
+        ctx.fill();
+
+        // Dibujar Coche
+        ctx.fillStyle = "#e74c3c";
+        ctx.fillRect(30, dmState.y - 10, 20, 10);
+        ctx.fillStyle = "#000";
+        ctx.beginPath();
+        ctx.arc(33, dmState.y, 4, 0, Math.PI*2);
+        ctx.arc(47, dmState.y, 4, 0, Math.PI*2);
+        ctx.fill();
+
+        requestAnimationFrame(updateDriveMad);
+    }
+
+    // --- JUEGO 2: TRAFFIC RACER ---
+    let trState = {};
+    function initTraffic() {
+        trState = { playerX: 110, obsY: -50, obsX: 110, score: 0 };
+    }
+    function updateTraffic() {
+        const canvas = document.getElementById('canvas-traffic');
+        if (!canvas || !canvas.getContext) return;
+        const ctx = canvas.getContext('2d');
+
+        if (keys['ArrowLeft'] && trState.playerX > 60) trState.playerX -= 3;
+        if (keys['ArrowRight'] && trState.playerX < 160) trState.playerX += 3;
+
+        trState.obsY += 3;
+        if (trState.obsY > 200) {
+            trState.obsY = -40;
+            trState.obsX = 60 + Math.random() * 100;
+            trState.score++;
+        }
+
+        ctx.fillStyle = "#333";
+        ctx.fillRect(0, 0, 250, 200);
+        
+        // Carretera
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(50, 0, 5, 200);
+        ctx.fillRect(195, 0, 5, 200);
+
+        // Jugador
+        ctx.fillStyle = "#3498db";
+        ctx.fillRect(trState.playerX, 150, 20, 35);
+
+        // Obstáculo
+        ctx.fillStyle = "#e74c3c";
+        ctx.fillRect(trState.obsX, trState.obsY, 20, 35);
+
+        // Puntuación
+        ctx.fillStyle = "#fff";
+        ctx.fillText("Puntos: " + trState.score, 10, 20);
+
+        requestAnimationFrame(updateTraffic);
+    }
+
+    // --- JUEGO 3: DRIFT MASTER ---
+    let dfState = {};
+    function initDrift() {
+        dfState = { x: 125, y: 150, dir: 1, score: 0, alive: true };
+    }
+    window.addEventListener('keydown', e => {
+        if(e.code === 'Space' && dfState.alive) {
+            dfState.dir *= -1;
+        }
+    });
+    function updateDrift() {
+        const canvas = document.getElementById('canvas-drift');
+        if (!canvas || !canvas.getContext) return;
+        const ctx = canvas.getContext('2d');
+
+        ctx.fillStyle = "#2c3e50";
+        ctx.fillRect(0, 0, 250, 200);
+
+        if (dfState.alive) {
+            dfState.x += dfState.dir * 1.5;
+            dfState.y -= 0.5;
+            dfState.score++;
+
+            if(dfState.x < 30 || dfState.x > 220 || dfState.y < 0) {
+                dfState.alive = false;
+            }
+        }
+
+        // Pista
+        ctx.fillStyle = "#7f8c8d";
+        ctx.fillRect(30, 0, 190, 200);
+
+        // Coche
+        ctx.fillStyle = "#f1c40f";
+        ctx.fillRect(dfState.x, dfState.y, 12, 12);
+
+        ctx.fillStyle = "#fff";
+        ctx.fillText(dfState.alive ? "Puntos: " + dfState.score : "¡Chocaste!", 10, 20);
+
+        requestAnimationFrame(updateDrift);
     }
 </script>
 
